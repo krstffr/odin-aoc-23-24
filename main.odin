@@ -10,6 +10,7 @@ import d2302 "23/02"
 import d2303 "23/03"
 import d2304 "23/04"
 import d2305 "23/05"
+import d2306 "23/06"
 
 time_func :: proc(p: proc(filepath: string), filepath: string) {
 	fmt.printf("\n")
@@ -26,6 +27,9 @@ time_func_p2 :: proc(p: proc(filepath: string, p2: bool), filepath: string, p2: 
 }
 
 main :: proc() {
+	if len(os.args) < 2 {
+		fmt.panicf("Usage: Run with all or 1/2/3 etc.")
+	}
 	// setup tracking allocator...
 	fmt.printf("Setting up tracking allocator\n")
 	track: mem.Tracking_Allocator
@@ -48,11 +52,12 @@ main :: proc() {
 		mem.tracking_allocator_destroy(&track)
 	}
 
-	if len(os.args) < 2 || os.args[1] == "1" do time_func(d2301.day, "23/01/input.txt")
-	if len(os.args) < 2 || os.args[1] == "2" do time_func(d2302.day, "23/02/input.txt")
-	if len(os.args) < 2 || os.args[1] == "3" do time_func(d2303.day, "23/03/input.txt")
-	if len(os.args) < 2 || os.args[1] == "4" do time_func(d2304.day, "23/04/input.txt")
-	if len(os.args) < 2 || os.args[1] == "5" do time_func_p2(d2305.day, "23/05/input.txt", true)
+	if os.args[1] == "all" || os.args[1] == "1" do time_func(d2301.day, "23/01/input.txt")
+	if os.args[1] == "all" || os.args[1] == "2" do time_func(d2302.day, "23/02/input.txt")
+	if os.args[1] == "all" || os.args[1] == "3" do time_func(d2303.day, "23/03/input.txt")
+	if os.args[1] == "all" || os.args[1] == "4" do time_func(d2304.day, "23/04/input.txt")
+	if os.args[1] == "all" || os.args[1] == "5" do time_func_p2(d2305.day, "23/05/input.txt", false)
+	if os.args[1] == "all" || os.args[1] == "6" do time_func(d2306.day, "23/06/input.txt")
 
-	fmt.printf("\n\nRan all day...!\n")
+	fmt.printf("\n\nRan all days...!\n")
 }
