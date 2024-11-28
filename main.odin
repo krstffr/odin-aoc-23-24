@@ -8,6 +8,7 @@ import "core:time"
 import d2301 "23/01"
 import d2302 "23/02"
 import d2303 "23/03"
+import d2304 "23/04"
 
 time_func :: proc(p: proc(filepath: string), filepath: string) {
 	fmt.printf("\n")
@@ -42,6 +43,7 @@ main :: proc() {
 	if len(os.args) < 2 || os.args[1] == "1" do time_func(d2301.day, "23/01/input.txt")
 	if len(os.args) < 2 || os.args[1] == "2" do time_func(d2302.day, "23/02/input.txt")
 	if len(os.args) < 2 || os.args[1] == "3" do time_func(d2303.day, "23/03/input.txt")
+	if len(os.args) < 2 || os.args[1] == "4" do time_func(d2304.day, "23/04/input.txt")
 
 	fmt.printf("\n\nRan all day...!\n")
 }
