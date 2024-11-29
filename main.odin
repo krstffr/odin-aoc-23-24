@@ -12,6 +12,7 @@ import d2304 "23/04"
 import d2305 "23/05"
 import d2306 "23/06"
 import d2307 "23/07"
+import d2308 "23/08"
 
 time_func :: proc(p: proc(filepath: string), filepath: string) {
 	fmt.printf("\n")
@@ -60,6 +61,7 @@ main :: proc() {
 	if os.args[1] == "all" || os.args[1] == "5" do time_func_p2(d2305.day, "23/05/input.txt", false)
 	if os.args[1] == "all" || os.args[1] == "6" do time_func(d2306.day, "23/06/input.txt")
 	if os.args[1] == "all" || os.args[1] == "7" do time_func(d2307.day, "23/07/input.txt")
+	if os.args[1] == "all" || os.args[1] == "8" do time_func(d2308.day, "23/08/input.txt")
 
 	fmt.printf("\n\nRan all days...!\n")
 }
