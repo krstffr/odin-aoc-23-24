@@ -9,7 +9,7 @@ import "core:strconv"
 import "core:strings"
 import "core:unicode/utf8"
 
-find_in_string :: proc(s: string) -> (result: int) {
+find_valid_muls :: proc(s: string) -> (result: int) {
 	splits, _ := strings.split(s, "mul(")
 	defer delete(splits)
 
@@ -20,7 +20,7 @@ find_in_string :: proc(s: string) -> (result: int) {
 
 		ns, _ := strings.split(parts[0], ",")
 		defer delete(ns)
-		if len(ns) < 2 do continue
+		if len(ns) != 2   do continue
 		if len(ns[0]) > 3 do continue
 		if len(ns[1]) > 3 do continue
 
@@ -40,20 +40,19 @@ day :: proc(filepath: string) {
 	input, err := os.read_entire_file(filepath)
 	defer delete(input)
 
-	lines, err_lines := strings.split_lines(string(input))
-	defer delete(lines)
-
 	part_1 := 0
 	part_2 := 0
 
-	for line in lines do part_1 += find_in_string(line)
+	// part 1
+	part_1 = find_valid_muls(string(input))
 
+	// part 2
 	dos, _ := strings.split(string(input), "do()")
 	defer delete(dos)
 	for _do in dos {
 		do_until, _ := strings.split(_do, "don't()")
 		defer delete(do_until)
-		part_2 += find_in_string(do_until[0])
+		part_2 += find_valid_muls(do_until[0])
 	}
 
 	fmt.printf("Part one: {}\n", part_1)
