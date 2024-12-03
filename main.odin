@@ -20,6 +20,8 @@ import d2401 "24/01"
 import d2402 "24/02"
 import d2403 "24/03"
 
+// EC 2024
+import ec_d2401 "everybody.codes/24/01"
 time_func :: proc(p: proc(filepath: string), filepath: string) {
 	fmt.printf("\n")
 	start := time.now()
@@ -74,6 +76,9 @@ main :: proc() {
 	if os.args[1] == "all" || os.args[1] == "2401" do time_func(d2401.day, "24/01/input.txt")
 	if os.args[1] == "all" || os.args[1] == "2402" do time_func(d2402.day, "24/02/input.txt")
 	if os.args[1] == "all" || os.args[1] == "2403" do time_func(d2403.day, "24/03/input.txt")
+
+	// EC 2024
+	if os.args[1] == "all" || os.args[1] == "ec_2401" do time_func(ec_d2401.day, "everybody.codes/24/01/input.txt")
 
 	fmt.printf("\n\nRan all days in {} ms!\n", (time.now()._nsec - start_all._nsec) / 1_000_000)
 }
