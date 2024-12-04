@@ -9,7 +9,7 @@ import "core:strconv"
 import "core:strings"
 import "core:unicode/utf8"
 
-cmp_rslice :: proc(r1, r2: []rune) -> bool {
+cmp_rslice :: proc(r1, r2: []u8) -> bool {
 	if len(r1) != len(r2) do return false
 	for x, i in r1 {
 		if x != r2[i] do return false
@@ -18,23 +18,19 @@ cmp_rslice :: proc(r1, r2: []rune) -> bool {
 }
 
 find_diag :: proc(x, y: int, lines: ^[]string, part_1: ^int) {
-	str: [dynamic]rune
+	str: [dynamic]u8
 	defer delete(str)
-	curr_x := x
-	curr_y := y
 	for i in 0 ..= 3 {
-		curr_x = x + i
-		curr_y = y + i
-		if curr_y > len(lines) - 1 do break
-		if curr_x > len(lines[0]) - 1 do break
-		append(&str, rune(lines[curr_y][curr_x]))
+		if y + i > len(lines) - 1 do break
+		if x + i > len(lines[0]) - 1 do break
+		append(&str, lines[y + i][x + i])
 	}
 	if cmp_rslice(str[:], {'X', 'M', 'A', 'S'}) do part_1^ += 1
 	if cmp_rslice(str[:], {'S', 'A', 'M', 'X'}) do part_1^ += 1
 }
 
 find_diag_inv :: proc(x, y: int, lines: ^[]string, part_1: ^int) {
-	str: [dynamic]rune
+	str: [dynamic]u8
 	defer delete(str)
 	curr_x := x
 	curr_y := y
@@ -43,14 +39,14 @@ find_diag_inv :: proc(x, y: int, lines: ^[]string, part_1: ^int) {
 		curr_y = y + i
 		if curr_y > len(lines) - 1 do break
 		if curr_x < 0 do break
-		append(&str, rune(lines[curr_y][curr_x]))
+		append(&str, lines[curr_y][curr_x])
 	}
 	if cmp_rslice(str[:], {'X', 'M', 'A', 'S'}) do part_1^ += 1
 	if cmp_rslice(str[:], {'S', 'A', 'M', 'X'}) do part_1^ += 1
 }
 
 find_vert :: proc(x, y: int, lines: ^[]string, part_1: ^int) {
-	str: [dynamic]rune
+	str: [dynamic]u8
 	defer delete(str)
 	curr_x := x
 	curr_y := y
@@ -58,28 +54,28 @@ find_vert :: proc(x, y: int, lines: ^[]string, part_1: ^int) {
 		curr_y = y + i
 		if curr_y > len(lines) - 1 do break
 		if curr_x < 0 do break
-		append(&str, rune(lines[curr_y][curr_x]))
+		append(&str, lines[curr_y][curr_x])
 	}
 	if cmp_rslice(str[:], {'X', 'M', 'A', 'S'}) do part_1^ += 1
 	if cmp_rslice(str[:], {'S', 'A', 'M', 'X'}) do part_1^ += 1
 }
 
 find_cross :: proc(from_x, from_y: int, lines: ^[]string, part_2: ^int) {
-	g: [3][3]rune
+	g: [3][3]u8
 	for yd in 0 ..< 3 {
 		for xd in 0 ..< 3 {
 			y := from_y + yd
 			x := from_x + xd
 			if y > len(lines) - 1 do break
 			if x > len(lines[0]) - 1 do break
-			if yd == 0 && xd == 0 do g[yd][xd] = rune(lines[y][x])
-			if yd == 0 && xd == 2 do g[yd][xd] = rune(lines[y][x])
-			if yd == 1 && xd == 1 do g[yd][xd] = rune(lines[y][x])
-			if yd == 2 && xd == 0 do g[yd][xd] = rune(lines[y][x])
-			if yd == 2 && xd == 2 do g[yd][xd] = rune(lines[y][x])
+			if yd == 0 && xd == 0 do g[yd][xd] = u8(lines[y][x])
+			if yd == 0 && xd == 2 do g[yd][xd] = u8(lines[y][x])
+			if yd == 1 && xd == 1 do g[yd][xd] = u8(lines[y][x])
+			if yd == 2 && xd == 0 do g[yd][xd] = u8(lines[y][x])
+			if yd == 2 && xd == 2 do g[yd][xd] = u8(lines[y][x])
 		}
 	}
-	variations: [][3][3]rune = {
+	variations: [][3][3]u8 = {
 		{{'M', '.', 'M'}, {'.', 'A', ','}, {'S', '.', 'S'}},
 		{{'S', '.', 'M'}, {'.', 'A', ','}, {'S', '.', 'M'}},
 		{{'S', '.', 'S'}, {'.', 'A', ','}, {'M', '.', 'M'}},
