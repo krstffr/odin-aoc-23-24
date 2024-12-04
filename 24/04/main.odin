@@ -1,0 +1,135 @@
+package d2404
+
+import "../../utils"
+import "core:fmt"
+import "core:math"
+import "core:os"
+import "core:slice"
+import "core:strconv"
+import "core:strings"
+import "core:unicode/utf8"
+
+cmp_rslice :: proc(r1, r2: []rune) -> bool {
+	if len(r1) != len(r2) do return false
+	for x, i in r1 {
+		if x != r2[i] do return false
+	}
+	return true
+}
+
+find_diag :: proc(x, y: int, lines: ^[]string, part_1: ^int) {
+	str: [dynamic]rune
+	defer delete(str)
+	curr_x := x
+	curr_y := y
+	for i in 0 ..= 3 {
+		curr_x = x + i
+		curr_y = y + i
+		if curr_y > len(lines) - 1 do break
+		if curr_x > len(lines[0]) - 1 do break
+		append(&str, rune(lines[curr_y][curr_x]))
+	}
+	if cmp_rslice(str[:], {'X', 'M', 'A', 'S'}) do part_1^ += 1
+	if cmp_rslice(str[:], {'S', 'A', 'M', 'X'}) do part_1^ += 1
+}
+
+find_diag_inv :: proc(x, y: int, lines: ^[]string, part_1: ^int) {
+	str: [dynamic]rune
+	defer delete(str)
+	curr_x := x
+	curr_y := y
+	for i in 0 ..= 3 {
+		curr_x = x - i
+		curr_y = y + i
+		if curr_y > len(lines) - 1 do break
+		if curr_x < 0 do break
+		append(&str, rune(lines[curr_y][curr_x]))
+	}
+	if cmp_rslice(str[:], {'X', 'M', 'A', 'S'}) do part_1^ += 1
+	if cmp_rslice(str[:], {'S', 'A', 'M', 'X'}) do part_1^ += 1
+}
+
+find_vert :: proc(x, y: int, lines: ^[]string, part_1: ^int) {
+	str: [dynamic]rune
+	defer delete(str)
+	curr_x := x
+	curr_y := y
+	for i in 0 ..= 3 {
+		curr_y = y + i
+		if curr_y > len(lines) - 1 do break
+		if curr_x < 0 do break
+		append(&str, rune(lines[curr_y][curr_x]))
+	}
+	if cmp_rslice(str[:], {'X', 'M', 'A', 'S'}) do part_1^ += 1
+	if cmp_rslice(str[:], {'S', 'A', 'M', 'X'}) do part_1^ += 1
+}
+
+find_cross :: proc(from_x, from_y: int, lines: ^[]string, part_2: ^int) {
+	g: [3][3]rune
+	for yd in 0 ..< 3 {
+		for xd in 0 ..< 3 {
+			y := from_y + yd
+			x := from_x + xd
+			if y > len(lines) - 1 do break
+			if x > len(lines[0]) - 1 do break
+			if yd == 0 && xd == 0 do g[yd][xd] = rune(lines[y][x])
+			if yd == 0 && xd == 2 do g[yd][xd] = rune(lines[y][x])
+			if yd == 1 && xd == 1 do g[yd][xd] = rune(lines[y][x])
+			if yd == 2 && xd == 0 do g[yd][xd] = rune(lines[y][x])
+			if yd == 2 && xd == 2 do g[yd][xd] = rune(lines[y][x])
+		}
+	}
+	variations: [][3][3]rune = {
+		{{'M', '.', 'M'}, {'.', 'A', ','}, {'S', '.', 'S'}},
+		{{'S', '.', 'M'}, {'.', 'A', ','}, {'S', '.', 'M'}},
+		{{'S', '.', 'S'}, {'.', 'A', ','}, {'M', '.', 'M'}},
+		{{'M', '.', 'S'}, {'.', 'A', ','}, {'M', '.', 'S'}},
+	}
+	for v in variations {
+		all_good := true
+		for row, y in v {
+			for c, x in row {
+				if y == 1 && x == 0 || y == 1 && x == 2 || y == 0 && x == 1 || y == 2 && x == 1 {
+					continue
+				}
+				if c != g[y][x] do all_good = false
+			}
+		}
+		if all_good do part_2^ += 1
+	}
+}
+
+day :: proc(filepath: string) {
+	fmt.printf("day 24/04\n")
+	input, err := os.read_entire_file(filepath)
+	defer delete(input)
+
+	lines, err_lines := strings.split_lines(string(input))
+	defer delete(lines)
+
+	part_1 := 0
+	part_2 := 0
+
+	// horiz
+	for line, y in lines {
+		for _, i in line {
+			if i + 4 > len(line) do break
+			if line[i:i + 4] == "XMAS" do part_1 += 1
+			if line[i:i + 4] == "SAMX" do part_1 += 1
+		}
+	}
+
+	// all the rest...
+	for _, x in lines[0] {
+		for _, y in lines {
+			find_diag(x, y, &lines, &part_1)
+			find_diag_inv(x, y, &lines, &part_1)
+			find_vert(x, y, &lines, &part_1)
+			find_cross(x, y, &lines, &part_2)
+		}
+	}
+
+	fmt.printf("Part one: {}\n", part_1)
+	fmt.printf("Part two: {}\n", part_2)
+
+}
