@@ -19,10 +19,8 @@ add_scores :: proc(ns: []u8, to_add: int) -> (sum: int) {
 	return sum
 }
 
-day :: proc(filepath: string) {
+day :: proc(input: string) {
 	fmt.printf("EC day 24/01\n")
-	input, err := os.read_entire_file(filepath)
-	defer delete(input)
 
 	lines, err_lines := strings.split_lines(string(input))
 	defer delete(lines)

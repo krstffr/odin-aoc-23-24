@@ -8,15 +8,12 @@ import "core:strconv"
 import "core:strings"
 import "core:unicode/utf8"
 
-day :: proc(filepath: string) {
+day :: proc(input: string) {
 	fmt.printf("day 23/06\n")
 
 	// input:
 	// Time:        60     80     86     76
 	// Distance:   601   1163   1559   1300
-
-	input, err := os.read_entire_file(filepath)
-	defer delete(input)
 
 	lines, err_lines := strings.split_lines(string(input))
 	defer delete(lines)

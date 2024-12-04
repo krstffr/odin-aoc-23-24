@@ -31,11 +31,8 @@ parse_game :: proc(game: string, g: ^Game) {
 
 }
 
-day :: proc(filepath: string) {
+day :: proc(input: string) {
 	fmt.printf("day 23/02\n")
-
-	input, err := os.read_entire_file(filepath)
-	defer delete(input)
 
 	lines, err_lines := strings.split_lines(string(input))
 	defer delete(lines)

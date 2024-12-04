@@ -32,11 +32,8 @@ parse_line :: proc(line: string) {
 	append(&cards, card)
 }
 
-day :: proc(filepath: string) {
+day :: proc(input: string) {
 	fmt.printf("day 23/04\n")
-
-	input, err := os.read_entire_file(filepath)
-	defer delete(input)
 
 	lines, err_lines := strings.split_lines(string(input))
 	defer delete(lines)

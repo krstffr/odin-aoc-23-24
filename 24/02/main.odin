@@ -30,10 +30,8 @@ validate_line :: proc(ns : [dynamic]int) -> bool {
 	return good
 }
 
-day :: proc(filepath: string) {
+day :: proc(input: string) {
 	fmt.printf("day 24/02\n")
-	input, err := os.read_entire_file(filepath)
-	defer delete(input)
 
 	lines, err_lines := strings.split_lines(string(input))
 	defer delete(lines)

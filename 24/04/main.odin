@@ -99,10 +99,8 @@ find_cross :: proc(from_x, from_y: int, lines: ^[]string, part_2: ^int) {
 	}
 }
 
-day :: proc(filepath: string) {
+day :: proc(input: string) {
 	fmt.printf("day 24/04\n")
-	input, err := os.read_entire_file(filepath)
-	defer delete(input)
 
 	lines, err_lines := strings.split_lines(string(input))
 	defer delete(lines)

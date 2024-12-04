@@ -96,10 +96,8 @@ find_start_dir :: proc(p: ^Vec2, lines: ^[]string) -> Dir {
 }
 
 
-day :: proc(filepath: string) {
+day :: proc(input: string) {
 	fmt.printf("day 23/10\n")
-	input, err := os.read_entire_file(filepath)
-	defer delete(input)
 
 	lines, err_lines := strings.split_lines(string(input))
 	defer delete(lines)

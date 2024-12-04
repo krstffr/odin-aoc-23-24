@@ -36,9 +36,8 @@ find_valid_muls :: proc(s: string) -> (result: int) {
 }
 
 day :: proc(filepath: string) {
+day :: proc(input: string) {
 	fmt.printf("day 24/03\n")
-	input, err := os.read_entire_file(filepath)
-	defer delete(input)
 
 	part_1 := 0
 	part_2 := 0

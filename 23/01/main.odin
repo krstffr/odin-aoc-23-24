@@ -74,13 +74,10 @@ find_string_digits :: proc(input: string) -> int {
 
 }
 
-day :: proc(filepath: string) {
+day :: proc(input: string) {
 	fmt.printf("day 23/01\n")
 
 	defer delete(num_keys)
-
-	input, err := os.read_entire_file(filepath)
-	defer delete(input)
 
 	lines, err_lines := strings.split_lines(string(input))
 	defer delete(lines)

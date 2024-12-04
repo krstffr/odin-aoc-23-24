@@ -293,11 +293,8 @@ eval_hands_pt_2 :: proc(h1, h2: Hand) -> bool {
 	return s1 > s2
 }
 
-day :: proc(filepath: string) {
+day :: proc(input: string) {
 	fmt.printf("day 23/07\n")
-
-	input, err := os.read_entire_file(filepath)
-	defer delete(input)
 
 	lines, err_lines := strings.split_lines(string(input))
 	defer delete(lines)

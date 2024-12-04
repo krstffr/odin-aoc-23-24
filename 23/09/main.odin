@@ -43,10 +43,8 @@ solve_ns :: proc(ns: []int, sum: ^int, sum_2: ^int) {
 	sum_2^ += first_val
 }
 
-day :: proc(filepath: string) {
+day :: proc(input: string) {
 	fmt.printf("day 23/09\n")
-	input, err := os.read_entire_file(filepath)
-	defer delete(input)
 
 	lines, err_lines := strings.split_lines(string(input))
 	defer delete(lines)
