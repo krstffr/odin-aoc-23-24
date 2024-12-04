@@ -7,51 +7,39 @@ import "core:os"
 import "core:slice"
 import "core:strconv"
 import "core:strings"
+import "core:time"
 import "core:unicode/utf8"
 
-find_valid_muls :: proc(s: string) -> (result: int) {
-	splits, _ := strings.split(s, "mul(")
-	defer delete(splits)
-
-	for split in splits {
-		parts, _ := strings.split(split, ")")
-		defer delete(parts)
-		if len(parts[0]) > 7 do continue
-
-		ns, _ := strings.split(parts[0], ",")
-		defer delete(ns)
-		if len(ns) != 2   do continue
-		if len(ns[0]) > 3 do continue
-		if len(ns[1]) > 3 do continue
-
-		one, ok1 := strconv.parse_int(ns[0])
-		two, ok2 := strconv.parse_int(ns[1])
-
-		if !ok1 || !ok2 do continue
-
-		result += one * two
-	}
-
-	return result
-}
-
-day :: proc(filepath: string) {
 day :: proc(input: string) {
 	fmt.printf("day 24/03\n")
 
 	part_1 := 0
 	part_2 := 0
 
-	// part 1
-	part_1 = find_valid_muls(string(input))
-
-	// part 2
-	dos, _ := strings.split(string(input), "do()")
-	defer delete(dos)
-	for _do in dos {
-		do_until, _ := strings.split(_do, "don't()")
-		defer delete(do_until)
-		part_2 += find_valid_muls(do_until[0])
+	slen := len(input)
+	input_string := string(input)
+	active := true
+	for _, i in input {
+		if string(input[i:i + 4]) == "do()" do active = true
+		if string(input[i:i + 7]) == "don't()" do active = false
+		if i + 12 == slen do break
+		if string(input[i:i + 4]) == "mul(" {
+			end := 0
+			comma := 0
+			j_loop: for j in i ..< i + 12 {
+				if comma == 0 && input_string[j] == ',' do comma = j
+				if input_string[j] == ')' {
+					end = j
+					break j_loop
+				}
+			}
+			if end > 0 && comma > 0 {
+				one, ok_1 := strconv.parse_int(string(input[i + 4:comma]))
+				two, ok_2 := strconv.parse_int(string(input[comma+1:end]))
+				part_1 += one * two
+				if active do part_2 += one * two
+			}
+		}
 	}
 
 	fmt.printf("Part one: {}\n", part_1)
