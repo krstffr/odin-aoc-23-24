@@ -9,14 +9,6 @@ import "core:strconv"
 import "core:strings"
 import "core:unicode/utf8"
 
-cmp_rslice :: proc(r1, r2: []u8) -> bool {
-	if len(r1) != len(r2) do return false
-	for x, i in r1 {
-		if x != r2[i] do return false
-	}
-	return true
-}
-
 find_diag :: proc(x, y: int, lines: ^[]string, part_1: ^int) {
 	str: [dynamic]u8
 	defer delete(str)
@@ -25,8 +17,8 @@ find_diag :: proc(x, y: int, lines: ^[]string, part_1: ^int) {
 		if x + i > len(lines[0]) - 1 do break
 		append(&str, lines[y + i][x + i])
 	}
-	if cmp_rslice(str[:], {'X', 'M', 'A', 'S'}) do part_1^ += 1
-	if cmp_rslice(str[:], {'S', 'A', 'M', 'X'}) do part_1^ += 1
+	if slice.equal(str[:], []u8{'X', 'M', 'A', 'S'}) do part_1^ += 1
+	if slice.equal(str[:], []u8{'S', 'A', 'M', 'X'}) do part_1^ += 1
 }
 
 find_diag_inv :: proc(x, y: int, lines: ^[]string, part_1: ^int) {
@@ -41,8 +33,8 @@ find_diag_inv :: proc(x, y: int, lines: ^[]string, part_1: ^int) {
 		if curr_x < 0 do break
 		append(&str, lines[curr_y][curr_x])
 	}
-	if cmp_rslice(str[:], {'X', 'M', 'A', 'S'}) do part_1^ += 1
-	if cmp_rslice(str[:], {'S', 'A', 'M', 'X'}) do part_1^ += 1
+	if slice.equal(str[:], []u8{'X', 'M', 'A', 'S'}) do part_1^ += 1
+	if slice.equal(str[:], []u8{'S', 'A', 'M', 'X'}) do part_1^ += 1
 }
 
 find_vert :: proc(x, y: int, lines: ^[]string, part_1: ^int) {
@@ -56,8 +48,8 @@ find_vert :: proc(x, y: int, lines: ^[]string, part_1: ^int) {
 		if curr_x < 0 do break
 		append(&str, lines[curr_y][curr_x])
 	}
-	if cmp_rslice(str[:], {'X', 'M', 'A', 'S'}) do part_1^ += 1
-	if cmp_rslice(str[:], {'S', 'A', 'M', 'X'}) do part_1^ += 1
+	if slice.equal(str[:], []u8{'X', 'M', 'A', 'S'}) do part_1^ += 1
+	if slice.equal(str[:], []u8{'S', 'A', 'M', 'X'}) do part_1^ += 1
 }
 
 find_cross :: proc(from_x, from_y: int, lines: ^[]string, part_2: ^int) {
