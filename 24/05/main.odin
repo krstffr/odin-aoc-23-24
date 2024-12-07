@@ -75,11 +75,14 @@ day :: proc(input: string) {
 
 		// sort and append to sorted_list
 		c := slice.clone(ns[:])
-		slice.sort_by_cmp(c[:], proc(a, b: int) -> slice.Ordering {
-			if slice.contains(rules_map[a].larger[:], b) do return .Less
-			if slice.contains(rules_map[a].smaller[:], b) do return .Greater
-			return .Equal
-		})
+		// This rancid loop was needed to solve "poisoned" input!
+		for _ in 0 ..< len(ns) {
+			slice.sort_by_cmp(c[:], proc(a, b: int) -> slice.Ordering {
+				if slice.contains(rules_map[a].larger[:], b) do return .Less
+				if slice.contains(rules_map[a].smaller[:], b) do return .Greater
+				return .Less
+			})
+		}
 		append(&sorted_lists, c)
 	}
 
