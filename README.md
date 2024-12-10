@@ -30,5 +30,5 @@ Day -------Run time (with -o:speed)--------   -------Delta time between part 1 a
   7                         832 ms                                          00:22:30
   8                           0 ms                                          00:04:21
   9                          55 ms                                          00:24:09
- 10                           2 ms                                          00:04:58
+ 10                           0 ms                                          00:04:58
 ```

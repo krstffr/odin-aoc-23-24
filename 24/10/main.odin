@@ -14,64 +14,46 @@ import "core:unicode/utf8"
 GRID_SIZE :: 41
 grid: [GRID_SIZE][GRID_SIZE]u8
 
-add_ns_to_q :: proc(p: [2]int, q: ^[dynamic][2]int, visited: ^map[[2]int]bool) {
-	if p.x > 0 && !([2]int{p.x - 1, p.y} in visited) {
+add_ns_to_q :: proc(p: [2]int, q: ^[dynamic][2]int) {
+	if p.x > 0 {
 		if grid[p.y][p.x - 1] - grid[p.y][p.x] == 1 {
 			append(q, [2]int{p.x - 1, p.y})
-			visited[[2]int{p.x - 1, p.y}] = true
 		}
 	}
-	if p.y > 0 && !([2]int{p.x, p.y - 1} in visited) {
+	if p.y > 0 {
 		if grid[p.y - 1][p.x] - grid[p.y][p.x] == 1 {
 			append(q, [2]int{p.x, p.y - 1})
-			visited[[2]int{p.x, p.y - 1}] = true
 		}
 	}
-	if p.x < GRID_SIZE - 1 && !([2]int{p.x + 1, p.y} in visited) {
+	if p.x < GRID_SIZE - 1 {
 		if grid[p.y][p.x + 1] - grid[p.y][p.x] == 1 {
 			append(q, [2]int{p.x + 1, p.y})
-			visited[[2]int{p.x + 1, p.y}] = true
 		}
 	}
-	if p.y < GRID_SIZE - 1 && !([2]int{p.x, p.y + 1} in visited) {
+	if p.y < GRID_SIZE - 1 {
 		if grid[p.y + 1][p.x] - grid[p.y][p.x] == 1 {
 			append(q, [2]int{p.x, p.y + 1})
-			visited[[2]int{p.x, p.y + 1}] = true
 		}
 	}
 }
 
-search :: proc(x, y: int) -> (score : int) {
-	visited: map[[2]int]bool
+search :: proc(x, y: int) -> (int, int) {
 	q: [dynamic][2]int = {{x, y}}
 	defer delete(q)
-	defer delete(visited)
+	nines: map[[2]int]bool
+	defer delete(nines)
+	ways_to_nine := 0
 
 	for len(q) > 0 {
 		n := pop(&q)
-		if grid[n.y][n.x] == '9' do score += 1
-		visited[n] = true
-		add_ns_to_q(n, &q, &visited)
+		if grid[n.y][n.x] == '9' {
+			ways_to_nine += 1
+			nines[{n.x, n.y}] = true
+		}
+		add_ns_to_q(n, &q)
 	}
 
-	return score
-}
-
-search_2 :: proc(x, y: int) -> (score : int) {
-	if grid[y][x] == '9' do return 1
-	if x > 0 {
-		if grid[y][x - 1] - grid[y][x] == 1 do score += search_2(x - 1, y)
-	}
-	if y > 0 {
-		if grid[y - 1][x] - grid[y][x] == 1 do score += search_2(x, y - 1)
-	}
-	if x < GRID_SIZE - 1 {
-		if grid[y][x + 1] - grid[y][x] == 1 do score += search_2(x + 1, y)
-	}
-	if y < GRID_SIZE - 1 {
-		if grid[y + 1][x] - grid[y][x] == 1 do score += search_2(x, y + 1)
-	}
-	return score
+	return len(nines), ways_to_nine
 }
 
 day :: proc(input: string) {
@@ -92,8 +74,9 @@ day :: proc(input: string) {
 	for l, y in lines {
 		for c, x in l {
 			if c == '0' {
-				part_1 += search(x, y)
-				part_2 += search_2(x, y)
+				one, two := search(x, y)
+				part_1 += one
+				part_2 += two
 			}
 		}
 	}
