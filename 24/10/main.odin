@@ -40,7 +40,8 @@ add_ns_to_q :: proc(p: [2]int, q: ^[dynamic][2]int) {
 search :: proc(x, y: int) -> (int, int) {
 	q: [dynamic][2]int = {{x, y}}
 	defer delete(q)
-	nines: map[[2]int]bool
+	// NOTE: Nasty "set" workaround haha. Store 0 bytes instead of size of bool!
+	nines: map[[2]int]struct{}
 	defer delete(nines)
 	ways_to_nine := 0
 
@@ -48,7 +49,7 @@ search :: proc(x, y: int) -> (int, int) {
 		n := pop(&q)
 		if grid[n.y][n.x] == '9' {
 			ways_to_nine += 1
-			nines[{n.x, n.y}] = true
+			nines[{n.x, n.y}] = {}
 		}
 		add_ns_to_q(n, &q)
 	}
