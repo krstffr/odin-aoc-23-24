@@ -29,6 +29,7 @@ import d2408 "24/08"
 import d2409 "24/09"
 import d2410 "24/10"
 import d2411 "24/11"
+import d2412 "24/12"
 
 // EC 2024
 import ec_d2401 "everybody.codes/24/01"
@@ -100,6 +101,7 @@ main :: proc() {
 	if os.args[1] == "all" || os.args[1] == "2409" do time_func(d2409.day, "24/09/input.txt")
 	if os.args[1] == "all" || os.args[1] == "2410" do time_func(d2410.day, "24/10/input.txt")
 	if os.args[1] == "all" || os.args[1] == "2411" do time_func(d2411.day, "24/11/input.txt")
+	if os.args[1] == "all" || os.args[1] == "2412" do time_func(d2412.day, "24/12/input.txt")
 
 	// EC 2024
 	if os.args[1] == "all" || os.args[1] == "ec_2401" do time_func(ec_d2401.day, "everybody.codes/24/01/input.txt")
