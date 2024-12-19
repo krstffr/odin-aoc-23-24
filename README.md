@@ -26,6 +26,7 @@ Day       Time  Rank  Score       Time   Rank  Score
  // 16 –17 coming soon!
 
  18   01:05:39   5478     0   01:08:23   4779      0
+ 19   00:50:39   4770     0   00:52:26   3548      0
 ```
 
 ```
@@ -50,5 +51,6 @@ Day -------Run time (with -o:speed)--------   -------Delta time between part 1 a
  
  // 16 –17 coming soon!
 
- 15                          13 ms                                          00:02:44 // OK!
+ 18                          13 ms                                          00:02:44 // OK!
+ 19                          20 ms                                          00:01:47 // OK!
 ```
