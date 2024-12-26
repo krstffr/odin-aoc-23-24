@@ -29,6 +29,7 @@ Day       Time  Rank  Score       Time   Rank  Score
  19   00:50:39   4770     0   00:52:26   3548      0
  20   00:58:36   3138     0   03:18:05   4453      0
  23   02:24:37   6306     0   04:24:33   6847      0
+ 25   04:06:02   8528     0          -      -      -
 ```
 
 ```
@@ -58,4 +59,6 @@ Day -------Run time (with -o:speed)--------   -------Delta time between part 1 a
  20                          40 ms                                          02:19:29 // Had to take kids to school
  
  23                          7 ms                                           01:59:56 // Had to take kids to doctor LOL
+ 
+ 25                          0 ms                                           -
 ```
