@@ -34,6 +34,7 @@ import d2413 "24/13"
 import d2418 "24/18"
 import d2419 "24/19"
 import d2420 "24/20"
+import d2421 "24/21"
 import d2423 "24/23"
 import d2425 "24/25"
 
@@ -112,6 +113,7 @@ main :: proc() {
 	if os.args[1] == "all" || os.args[1] == "2418" do time_func(d2418.day, "24/18/input.txt")
 	if os.args[1] == "all" || os.args[1] == "2419" do time_func(d2419.day, "24/19/input.txt")
 	if os.args[1] == "all" || os.args[1] == "2420" do time_func(d2420.day, "24/20/input.txt")
+	if os.args[1] == "all" || os.args[1] == "2421" do time_func(d2421.day, "24/21/input.txt")
 	if os.args[1] == "all" || os.args[1] == "2423" do time_func(d2423.day, "24/23/input.txt")
 	if os.args[1] == "all" || os.args[1] == "2425" do time_func(d2425.day, "24/25/input.txt")
 
