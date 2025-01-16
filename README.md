@@ -50,8 +50,8 @@ Day -------Run time (with -o:speed)--------   -------Delta time between part 1 a
  11                          50 ms                                          01:28:08
  12                          50 ms                                          00:54:24
  13                           0 ms                                          04:00:02
- 14                          XX ms                                          00:19:19
- 15                          XX ms                                              >24h 
+ 14                          38 ms                                          00:19:19
+ 15                           1 ms                                              >24h 
  
  // 16 –17 coming soon!
 
