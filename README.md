@@ -18,6 +18,7 @@ Day       Time   Rank  Score       Time   Rank  Score
  11   01:04:39  10365      0   02:32:47   9209      0
  12   00:30:28   3535      0   01:24:52   2984      0
  13   00:28:16   3080      0   04:00:02   9277      0
+ 
  // here is where i stopped going up at 06:00 most days...
  14   04:36:13  13503      0   04:55:32  10364      0
  15   01:10:09   5459      0       >24h  21995      0
@@ -29,7 +30,7 @@ Day       Time   Rank  Score       Time   Rank  Score
  21   02:31:55   2160      0       >24h  18173      0
  22   02:05:31   5804      0   02:54:15   4723      0
  23   02:24:37   6306      0   04:24:33   6847      0
- // day 24 coming soon!
+ 24   02:15:09   5995      0       >24h  17965      0
  25   04:06:02   8528      0          -      -      -
 ```
 
@@ -60,6 +61,6 @@ Day -------Run time (with -o:speed)--------   -------Delta time between part 1 a
  21                           0 ms                                               24h // Solved in january...
  22                       HORRIBLE                                          00:48:44
  23                           7 ms                                          01:59:56 // Had to take kids to doctor LOL
- 24 COMING                                                                      >24h 
+ 24      NOT APPLICABLE, BUILT A RAYLIB APP TO VISUALLY FIND THE NODES😬        >24h 
  25                           0 ms                                              >24h 
 ```
