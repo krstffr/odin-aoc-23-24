@@ -1,3 +1,5 @@
+#+feature dynamic-literals
+
 package day2303
 
 import "core:fmt"

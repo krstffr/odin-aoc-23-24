@@ -1,3 +1,5 @@
+#+feature dynamic-literals
+
 package d2418
 
 import "../../utils"
